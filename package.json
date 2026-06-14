@@ -1,0 +1,46 @@
+{
+  "name": "desktop-pet",
+  "version": "0.1.0",
+  "description": "A tiny transparent desktop pet for Windows.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "status": "node scripts/status.js",
+    "status:approval": "node scripts/status.js approval",
+    "status:approval:pet": "node scripts/status.js approvalPet",
+    "status:approval:kakeibo": "node scripts/status.js approvalKakeibo",
+    "status:approval:news": "node scripts/status.js approvalNews",
+    "status:approval:taicho": "node scripts/status.js approvalTaicho",
+    "status:error": "node scripts/status.js error",
+    "status:error:pet": "node scripts/status.js errorPet",
+    "status:error:kakeibo": "node scripts/status.js errorKakeibo",
+    "status:error:news": "node scripts/status.js errorNews",
+    "status:error:taicho": "node scripts/status.js errorTaicho",
+    "status:waiting": "node scripts/status.js waiting",
+    "status:waiting:pet": "node scripts/status.js waitingPet",
+    "status:waiting:kakeibo": "node scripts/status.js waitingKakeibo",
+    "status:waiting:news": "node scripts/status.js waitingNews",
+    "status:waiting:taicho": "node scripts/status.js waitingTaicho",
+    "status:working": "node scripts/status.js working",
+    "status:working:pet": "node scripts/status.js workingPet",
+    "status:working:kakeibo": "node scripts/status.js workingKakeibo",
+    "status:working:news": "node scripts/status.js workingNews",
+    "status:working:taicho": "node scripts/status.js workingTaicho",
+    "status:testing": "node scripts/status.js testing",
+    "status:done": "node scripts/status.js done --clear-after=6",
+    "status:done:pet": "node scripts/status.js donePet --clear-after=8",
+    "status:done:kakeibo": "node scripts/status.js doneKakeibo --clear-after=8",
+    "status:done:news": "node scripts/status.js doneNews --clear-after=8",
+    "status:done:taicho": "node scripts/status.js doneTaicho --clear-after=8",
+    "status:clear": "node scripts/status.js clear"
+  },
+  "keywords": [
+    "desktop-pet",
+    "electron"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^42.0.1"
+  }
+}

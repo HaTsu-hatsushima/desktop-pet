@@ -1,0 +1,9 @@
+node_modules/
+npm-debug.log*
+dist/
+status.txt
+status-queue.json
+assets/_debug_*.png
+assets/*-source.png
+assets/*-source.xcf
+assets/*-simple-backup.png
