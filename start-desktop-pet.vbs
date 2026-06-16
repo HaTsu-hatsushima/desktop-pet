@@ -1,3 +1,4 @@
 Set shell = CreateObject("WScript.Shell")
-shell.CurrentDirectory = "C:\Users\sweet\codex-projects\desktop-pet"
+Set fso = CreateObject("Scripting.FileSystemObject")
+shell.CurrentDirectory = fso.GetParentFolderName(WScript.ScriptFullName)
 shell.Run "cmd /c npm.cmd start", 0, False
