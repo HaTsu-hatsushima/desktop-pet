@@ -4,6 +4,7 @@
 
 - This project is a Windows Electron desktop pet named Mio.
 - Treat this repository as the canonical Mio Desktop Pet project for future Codex chats and cloned workspaces.
+- For clone/setup and portable Codex workflow details, read `docs/codex-setup.md`.
 - Keep changes small and focused.
 - Use `npm.cmd`, not `npm`, from PowerShell.
 - Start the app with `npm.cmd start`.
