@@ -38,7 +38,13 @@ Mio comments should be sparse and automatic when the situation matches these rul
 
 - Do not show a bubble just because a new chat or project started.
 - Do not show bubbles for normal chat, routine progress, or short status updates.
-- Before approval-gated or elevated commands, run the matching `status:approval*` command immediately before the approval-gated command.
+- Before approval-gated or elevated commands, run the matching `status:approval*` command immediately before the approval-gated command. The approval command writes the Mio bubble immediately.
+- Mandatory approval order:
+  1. Decide the project label or project-specific status command.
+  2. Run the matching Mio command from the Desktop Pet project folder.
+  3. Confirm the command output says `status queued`.
+  4. Only then run the approval-gated command.
+  5. If the Mio command fails, do not run the approval-gated command yet; fix or report the notification failure first.
 - While approval is waiting, leave the approval bubble visible.
 - After the approval-gated command returns, replace it with `status:error*`, `status:done*` for long or substantial completed work, or `status:clear`.
 - Use `status:done*` only for long work, substantial implementations, multi-step debugging, or tasks where the user may be away.

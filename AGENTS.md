@@ -22,8 +22,20 @@
 - Avoid adding a speaker prefix such as `Mio:` in bubble text; the pet is the speaker.
 - Apply Mio status comment rules automatically in future chats and projects without waiting for the user to ask for a comment.
 - Do not show Mio comments just because a new chat or new project started.
-- Use the project-specific `status:approval*` command immediately before commands that require user approval. Approval messages are delayed briefly so they appear after the Codex approval UI has time to show.
-- Once an approval bubble is scheduled, leave it visible while the Codex approval UI is waiting. Do not clear or replace it until the approval-gated command has returned.
+- Use the project-specific `status:approval*` command immediately before commands that require user approval. Approval messages are written immediately so Mio can show them while the Codex approval UI is waiting.
+- Mandatory approval order:
+  1. Decide the project label or project-specific status command.
+  2. Run the matching Mio command in this Desktop Pet project folder.
+  3. Confirm the command output says `status queued`.
+  4. Only then run the approval-gated command.
+  5. If the Mio command fails, do not run the approval-gated command yet; fix or report the notification failure first.
+- Project-specific approval commands:
+  - Desktop Pet work: `npm.cmd run status:approval:pet`
+  - Household-accounting automation work: `npm.cmd run status:approval:kakeibo`
+  - News app work: `npm.cmd run status:approval:news`
+  - 体調管理帳 一部自動化 work: `npm.cmd run status:approval:taicho`
+  - Other projects: `npm.cmd run status:approval -- --label="<project-or-chat-name>"`
+- Once an approval bubble is shown, leave it visible while the Codex approval UI is waiting. Do not clear or replace it until the approval-gated command has returned.
 - After the approval-gated command returns, immediately replace the approval bubble with `status:error*`, `status:done*` for long/substantial completed work, or clear it with `npm.cmd run status:clear` when no follow-up notice is needed.
 - For News app work, prefer `status:approval:news`, `status:error:news`, and `status:done:news`.
 - For household-accounting automation work, prefer `status:approval:kakeibo`, `status:error:kakeibo`, and `status:done:kakeibo`.

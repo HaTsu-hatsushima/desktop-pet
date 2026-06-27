@@ -1,11 +1,8 @@
 ﻿const fs = require('fs');
 const path = require('path');
-const { spawn } = require('child_process');
-
 const statusPath = path.join(__dirname, '..', 'status.txt');
 const queuePath = path.join(__dirname, '..', 'status-queue.json');
 const maxStatusLength = 120;
-const approvalDisplayDelayMs = 1500;
 
 const presets = Object.freeze({
   approval: { text: '\u627F\u8A8D\u5F85\u3061\u3063\u3061\u3083\u3093\u3002\u96E2\u5E2D\u4E2D\u3067\u3082\u5927\u4E08\u592B\u3001\u623B\u3063\u305F\u3089\u753B\u9762\u3092\u78BA\u8A8D\u3057\u3066\u306D\u266A', kind: 'approval', scope: 'general', durationMs: 60 * 60 * 1000 },
@@ -59,10 +56,6 @@ function parseArgs(args) {
   }
 
   return { messageParts, clearAfterMs, label, scope };
-}
-
-function sleep(ms) {
-  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 }
 
 function getPresetOrMessage(args) {
@@ -162,19 +155,8 @@ function syncQueueState() {
   return current;
 }
 
-function scheduleDelayedApproval(args) {
-  const child = spawn(process.execPath, [__filename, ...args, '--approval-now'], {
-    detached: true,
-    stdio: 'ignore',
-    windowsHide: true
-  });
-
-  child.unref();
-}
-
 const rawArgs = process.argv.slice(2);
-const approvalNow = rawArgs.includes('--approval-now');
-const { messageParts, clearAfterMs, label, scope } = parseArgs(rawArgs.filter((arg) => arg !== '--approval-now'));
+const { messageParts, clearAfterMs, label, scope } = parseArgs(rawArgs);
 const preset = applyLabel(getPresetOrMessage(messageParts), label, scope);
 const message = preset.text.trim().slice(0, maxStatusLength);
 const now = Date.now();
@@ -184,19 +166,6 @@ if (preset.kind === 'clear' || !message) {
   writeStatus('');
   console.log('status queue cleared.');
   process.exit(0);
-}
-
-if (preset.kind === 'approval' && !approvalNow) {
-  const queueWithoutApproval = pruneQueue(readQueue(), now).filter((item) => item.kind !== 'approval');
-  writeQueue(queueWithoutApproval);
-  syncQueueState();
-  scheduleDelayedApproval(rawArgs);
-  console.log('approval status scheduled: Mio will show it after the Codex approval UI has time to appear.');
-  process.exit(0);
-}
-
-if (preset.kind === 'approval' && approvalNow) {
-  sleep(approvalDisplayDelayMs);
 }
 
 const durationMs = clearAfterMs || preset.durationMs || 6000;
